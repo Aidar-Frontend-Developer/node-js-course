@@ -23,4 +23,8 @@ server.on("connection", (socket) => {
 	});
 });
 
-module.exports = { server };
+const PORT = process.env.PORT || 8080;
+
+server.listen(PORT, () => {
+	console.log("TCP Server started!");
+});

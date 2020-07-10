@@ -5,18 +5,18 @@ const client = new net.Socket();
 client.connect(8080, function () {
 	this.write(
 		JSON.stringify({
-			name: {
-				first: "John",
-				last: "d",
+			filter: {
+				name: {
+					first: "John",
+				},
+				address: {
+					zip: "1234",
+				},
 			},
-			phone: "56",
-			address: {
-				zip: "1234",
-				city: "Kyiv",
-				country: "ukr",
-				street: "so",
+			meta: {
+				format: "csv",
+				archive: true,
 			},
-			email: "@gmail.com",
 		})
 	);
 });
@@ -26,5 +26,5 @@ client.on("data", (data) => {
 });
 
 client.on("close", () => {
-	console.log("Connection closed");
+	console.log("Connection closed!");
 });
