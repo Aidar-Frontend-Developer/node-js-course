@@ -1,0 +1,25 @@
+{
+	"name": "crypto",
+	"version": "1.0.0",
+	"description": "crypto",
+	"private": false,
+	"main": "source/index.js",
+	"scripts": {
+		"start": "babel-node",
+		"build": "NODE_ENV=production babel source --out-dir dist --source-maps inline"
+	},
+	"license": "ISC",
+	"devDependencies": {
+		"@babel/cli": "^7.4.4",
+		"@babel/core": "^7.4.5",
+		"@babel/node": "^7.4.5",
+		"@babel/plugin-proposal-class-properties": "^7.4.4",
+		"@babel/plugin-proposal-private-methods": "^7.4.4",
+		"@babel/preset-env": "^7.4.5",
+		"babel-eslint": "^11.0.0-beta.0"
+	},
+	"engines": {
+		"node": ">=10.16.0",
+		"npm": ">=6.5.0"
+	}
+}
