@@ -1,11 +1,11 @@
 // Core
-import express from "express";
+import express from 'express';
 
 // Instruments
-import { post } from "./route";
+import { post } from './route';
 
 export const router = express.Router();
 
-router.post("/", post);
+router.post('/', post);
 
 export { router as logout };
