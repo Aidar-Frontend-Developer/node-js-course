@@ -1,6 +1,6 @@
-export const getClasses = (req, res) => {
+export const playLessonVideo = (req, res) => {
     try {
-        const data = [];
+        const data = {};
 
         res.status(200).json({ data });
     } catch ({ message }) {
@@ -8,11 +8,9 @@ export const getClasses = (req, res) => {
     }
 };
 
-export const createClass = (req, res) => {
+export const removeVideoFromLesson = (req, res) => {
     try {
-        const data = {};
-
-        res.status(201).json({ data });
+        res.status(204).end();
     } catch ({ message }) {
         res.status(500).json({ message });
     }

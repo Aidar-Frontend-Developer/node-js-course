@@ -3,17 +3,15 @@ import express from 'express';
 import bodyParser from 'body-parser';
 
 //Routers
-import * as routers from './routers';
+import { auth, users, classes, lessons } from './routers';
 
 const app = express();
 
 app.use(bodyParser.json({ limit: '10kb' }));
 
-// Routers
-app.use('/login', routers.login);
-app.use('/logout', routers.logout);
-app.use('/users', routers.users);
-app.use('/classes', routers.classes);
-app.use('/lessons', routers.lessons);
+app.use('/api/auth', auth);
+app.use('/api/users', users);
+app.use('/api/classes', classes);
+app.use('/api/lessons', lessons);
 
 export { app };

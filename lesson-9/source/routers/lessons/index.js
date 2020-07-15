@@ -2,29 +2,29 @@
 import express from 'express';
 
 // Instruments
-import { get, post } from './route';
-import { getByHash, updateByHash, removeByHash } from './hash';
-import { addKeynote } from './hash/keynotes';
-import { getKeynoteByHash, removeKeynoteByHash } from './hash/keynotes/hash';
-import { getVideoByHash, removeVideoByHash } from './hash/videos/hash';
-import { addVideo } from './hash/videos';
+import { getLessons, createLesson } from './route';
+import { getLessonByHash, updateLessonByHash, removeLessonByHash } from './hash/route';
+import { addKeynoteToLesson } from './hash/keynotes/route';
+import { getLessonKeynote, removeKeynoteFromLesson } from './hash/keynotes/hash/route';
+import { playLessonVideo, removeVideoFromLesson } from './hash/videos/hash/route';
+import { addVideoToLesson } from './hash/videos/route';
 
 export const router = express.Router();
 
-router.get('/', get);
-router.post('/', post);
+router.get('/', getLessons);
+router.post('/', createLesson);
 
-router.get('/:lessonHash', getByHash);
-router.put('/:lessonHash', updateByHash);
-router.delete('/:lessonHash', removeByHash);
+router.get('/:lessonHash', getLessonByHash);
+router.put('/:lessonHash', updateLessonByHash);
+router.delete('/:lessonHash', removeLessonByHash);
 
-router.post('/:lessonHash/videos', addVideo);
-router.post('/:lessonHash/keynotes', addKeynote);
+router.post('/:lessonHash/videos', addVideoToLesson);
+router.post('/:lessonHash/keynotes', addKeynoteToLesson);
 
-router.get('/:lessonHash/videos/:videoHash', getVideoByHash);
-router.delete('/:lessonHash/videos/:videoHash', removeVideoByHash);
+router.get('/:lessonHash/videos/:videoHash', playLessonVideo);
+router.delete('/:lessonHash/videos/:videoHash', removeVideoFromLesson);
 
-router.get('/:lessonHash/keynotes/:keynoteHash', getKeynoteByHash);
-router.delete('/:lessonHash/keynotes/:keynoteHash', removeKeynoteByHash);
+router.get('/:lessonHash/keynotes/:keynoteHash', getLessonKeynote);
+router.delete('/:lessonHash/keynotes/:keynoteHash', removeKeynoteFromLesson);
 
 export { router as lessons };

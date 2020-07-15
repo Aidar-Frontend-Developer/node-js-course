@@ -2,20 +2,20 @@
 import express from 'express';
 
 // Instruments
-import { get, post } from './route';
-import { getByHash, updateByHash, removeByHash } from './hash';
-import { enroll, expel } from './hash/education';
+import { getClasses, createClass } from './route';
+import { getClassByHash, updateClassByHash, removeClassByHash } from './hash/route';
+import { enrollToClass, expelFromClass } from './hash/education/route';
 
 export const router = express.Router();
 
-router.get('/', get);
-router.post('/', post);
+router.get('/', getClasses);
+router.post('/', createClass);
 
-router.get('/:classHash', getByHash);
-router.put('/:classHash', updateByHash);
-router.delete('/:classHash', removeByHash);
+router.get('/:classHash', getClassByHash);
+router.put('/:classHash', updateClassByHash);
+router.delete('/:classHash', removeClassByHash);
 
-router.post('/:classHash/enroll', enroll);
-router.post('/:classHash/expel', expel);
+router.post('/:classHash/enroll', enrollToClass);
+router.post('/:classHash/expel', expelFromClass);
 
 export { router as classes };

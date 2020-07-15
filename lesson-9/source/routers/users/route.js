@@ -1,15 +1,19 @@
-export const get = (req, res) => {
+export const getUsers = (req, res) => {
     try {
-        res.status(200).json({ data: [] });
-    } catch (error) {
-        res.status(400).json({ message: error.message });
+        const data = [];
+
+        res.status(200).json({ data });
+    } catch ({ message }) {
+        res.status(500).json({ message });
     }
 };
 
-export const post = (req, res) => {
+export const createUser = (req, res) => {
     try {
-        res.status(201).json({ data: {} });
-    } catch (error) {
-        res.status(400).json({ message: error.message });
+        const data = {};
+
+        res.status(201).json({ data });
+    } catch ({ message }) {
+        res.status(500).json({ message });
     }
 };
