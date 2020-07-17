@@ -1,0 +1,19 @@
+{
+	"name": "node-js-course",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"test": "jest"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Aidar-Frontend-Developer/node-js-course.git"
+	},
+	"keywords": [],
+	"author": "Habibullin Aidar Ramilevich",
+	"license": "ISC",
+	"devDependencies": {
+		"jest": "^26.1.0"
+	}
+}
