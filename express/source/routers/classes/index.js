@@ -5,36 +5,37 @@ import express from 'express';
 import { getClasses, addClass } from './route';
 import { getClassByHash, updateClassByHash, removeClassByHash } from './hash/route';
 import { enrollToClass, expelFromClass } from './hash/education/route';
-import { validator, authorization } from '../../utils';
+import { validator, authorization, getPassword } from '../../utils';
 
 // Schema
 import { createClass, enrollStudent, expelStudent } from '../../schemas';
 
 export const router = express.Router();
+const password = getPassword();
 
 router.get('/', getClasses);
 
-router.post('/', [ authorization(process.env.PASSWORD), validator(createClass) ], addClass);
+router.post('/', [authorization(password), validator(createClass)], addClass);
 
-router.get('/:classHash', [ authorization(process.env.PASSWORD) ], getClassByHash);
+router.get('/:classHash', [authorization(password)], getClassByHash);
 
 router.put(
     '/:classHash',
-    [ authorization(process.env.PASSWORD), validator(createClass) ],
+    [authorization(password), validator(createClass)],
     updateClassByHash,
 );
 
-router.delete('/:classHash', [ authorization(process.env.PASSWORD) ], removeClassByHash);
+router.delete('/:classHash', [authorization(password)], removeClassByHash);
 
 router.post(
     '/:classHash/enroll',
-    [ authorization(process.env.PASSWORD), validator(enrollStudent) ],
+    [authorization(password), validator(enrollStudent)],
     enrollToClass,
 );
 
 router.post(
     '/:classHash/expel',
-    [ authorization(process.env.PASSWORD), validator(expelStudent) ],
+    [authorization(password), validator(expelStudent)],
     expelFromClass,
 );
 
