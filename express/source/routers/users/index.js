@@ -4,24 +4,25 @@ import express from 'express';
 // Instruments
 import { getUsers, addUser } from './route';
 import { getUserByHash, updateUserByHash, removeUserByHash } from './hash/route';
-import { limiter, validator, authorization } from '../../utils';
+import { limiter, validator, authorization, getPassword } from '../../utils';
 
 // Schema
 import { createUser } from '../../schemas';
 
 export const router = express.Router();
+const password = getPassword();
 
-router.get('/', [ authorization(process.env.PASSWORD), limiter(5, 60 * 1000) ], getUsers);
-router.post('/', [ validator(createUser) ], addUser);
+router.get('/', [authorization(password), limiter(5, 60 * 1000)], getUsers);
+router.post('/', [validator(createUser)], addUser);
 
-router.get('/:userHash', [ authorization(process.env.PASSWORD) ], getUserByHash);
+router.get('/:userHash', [authorization(password)], getUserByHash);
 
 router.put(
     '/:userHash',
-    [ authorization(process.env.PASSWORD), validator(createUser) ],
+    [authorization(password), validator(createUser)],
     updateUserByHash,
 );
 
-router.delete('/:userHash', [ authorization(process.env.PASSWORD) ], removeUserByHash);
+router.delete('/:userHash', [authorization(password)], removeUserByHash);
 
 export { router as users };

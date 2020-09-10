@@ -8,60 +8,61 @@ import { addKeynoteToLesson } from './hash/keynotes/route';
 import { getLessonKeynote, removeKeynoteFromLesson } from './hash/keynotes/hash/route';
 import { playLessonVideo, removeVideoFromLesson } from './hash/videos/hash/route';
 import { addVideoToLesson } from './hash/videos/route';
-import { validator, authorization } from '../../utils';
+import { validator, authorization, getPassword } from '../../utils';
 
 // Schema
 import { createLesson, createVideo, createKeynote } from '../../schemas';
 
 export const router = express.Router();
+const password = getPassword();
 
 router.get('/', getLessons);
 
-router.post('/', [ authorization(process.env.PASSWORD), validator(createLesson) ], addLesson);
+router.post('/', [authorization(password), validator(createLesson)], addLesson);
 
-router.get('/:lessonHash', [ authorization(process.env.PASSWORD) ], getLessonByHash);
+router.get('/:lessonHash', [authorization(password)], getLessonByHash);
 
 router.put(
     '/:lessonHash',
-    [ authorization(process.env.PASSWORD), validator(createLesson) ],
+    [authorization(password), validator(createLesson)],
     updateLessonByHash,
 );
 
-router.delete('/:lessonHash', [ authorization(process.env.PASSWORD) ], removeLessonByHash);
+router.delete('/:lessonHash', [authorization(password)], removeLessonByHash);
 
 router.post(
     '/:lessonHash/videos',
-    [ authorization(process.env.PASSWORD), validator(createVideo) ],
+    [authorization(password), validator(createVideo)],
     addVideoToLesson,
 );
 
 router.post(
     '/:lessonHash/keynotes',
-    [ authorization(process.env.PASSWORD), validator(createKeynote) ],
+    [authorization(password), validator(createKeynote)],
     addKeynoteToLesson,
 );
 
 router.get(
     '/:lessonHash/videos/:videoHash',
-    [ authorization(process.env.PASSWORD) ],
+    [authorization(password)],
     playLessonVideo,
 );
 
 router.delete(
     '/:lessonHash/videos/:videoHash',
-    [ authorization(process.env.PASSWORD) ],
+    [authorization(password)],
     removeVideoFromLesson,
 );
 
 router.get(
     '/:lessonHash/keynotes/:keynoteHash',
-    [ authorization(process.env.PASSWORD) ],
+    [authorization(password)],
     getLessonKeynote,
 );
 
 router.delete(
     '/:lessonHash/keynotes/:keynoteHash',
-    [ authorization(process.env.PASSWORD) ],
+    [authorization(password)],
     removeKeynoteFromLesson,
 );
 
