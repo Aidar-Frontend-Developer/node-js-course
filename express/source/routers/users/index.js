@@ -4,7 +4,7 @@ import express from 'express';
 // Instruments
 import { getUsers, addUser } from './route';
 import { getUserByHash, updateUserByHash, removeUserByHash } from './hash/route';
-import { limiter, validator, authenticate, getPassword } from '../../utils';
+import { limiter, validator, authenticate } from '../../utils';
 
 // Schema
 import { createUser } from '../../schemas';

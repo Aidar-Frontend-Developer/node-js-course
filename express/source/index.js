@@ -1,4 +1,5 @@
 // Core
+
 import express from 'express';
 import passport from 'passport';
 import { EOL } from 'os';
@@ -28,6 +29,7 @@ import { auth, users, classes, lessons } from './routers';
 const PORT = getPort();
 
 const onSignal = () => Promise.all([ server.close() ]);
+// eslint-disable-next-line no-console
 const onShutdown = () => console.log(`${EOL}cleanup finished, server is shutting down${EOL}`);
 const options = {
     signal: 'SIGINT',
@@ -40,11 +42,10 @@ const options = {
 
 // JWT passport middleware usage
 // passport.use(
-// 	new JwtStrategy(jwtOptions, (jwtPayload, done) => {
-// 		const { email } = jwtPayload;
-
-// 		return done(null, { email });
-// 	}),
+// new JwtStrategy(jwtOptions, (jwtPayload, done) => {
+// const { email } = jwtPayload;
+// return done(null, { email });
+// }),
 // );
 
 // GITHUB passport middleware usage
@@ -102,6 +103,7 @@ app.use('*', (req, res, next) => {
 });
 
 if (process.env.NODE_ENV !== 'test') {
+    // eslint-disable-next-line no-unused-vars
     app.use((error, req, res, next) => {
         const { name: errorName, message, statusCode } = error;
         const errorMessage = `${errorName}: ${message}`;
@@ -123,6 +125,7 @@ if (process.env.NODE_ENV !== 'test') {
         res.status(statusCode || 500).json({ message });
     });
 
+    // eslint-disable-next-line no-unused-vars
     process.on('unhandledRejection', (error, promise) => errorLogger.error(error));
 
     process.on('uncaughtException', (error) => errorLogger.error(error));

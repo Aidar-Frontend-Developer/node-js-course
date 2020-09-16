@@ -8,7 +8,7 @@ import { addKeynoteToLesson } from './hash/keynotes/route';
 import { getLessonKeynote, removeKeynoteFromLesson } from './hash/keynotes/hash/route';
 import { playLessonVideo, removeVideoFromLesson } from './hash/videos/hash/route';
 import { addVideoToLesson } from './hash/videos/route';
-import { validator, authenticate, getPassword } from '../../utils';
+import { validator, authenticate } from '../../utils';
 
 // Schema
 import { createLesson, createVideo, createKeynote } from '../../schemas';

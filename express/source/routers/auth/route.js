@@ -5,7 +5,7 @@
 // import { getPassword } from '../../utils';
 // const sign = promisify(jwt.sign);
 
-export const loginUser = async (req, res) => {
+export const loginUser = (req, res) => {
     try {
         // JWT login authentication usage
         // const token = await sign({ email: 'test@test.test' }, getPassword());

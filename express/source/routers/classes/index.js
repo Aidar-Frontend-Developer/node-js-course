@@ -5,7 +5,7 @@ import express from 'express';
 import { getClasses, addClass } from './route';
 import { getClassByHash, updateClassByHash, removeClassByHash } from './hash/route';
 import { enrollToClass, expelFromClass } from './hash/education/route';
-import { validator, authenticate, getPassword } from '../../utils';
+import { validator, authenticate } from '../../utils';
 
 // Schema
 import { createClass, enrollStudent, expelStudent } from '../../schemas';
