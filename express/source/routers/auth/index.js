@@ -1,14 +1,13 @@
 // Core
 import express from 'express';
-import { authorization, getPassword } from '../../utils';
+import { authenticate, limiter } from '../../utils';
 
 // Instruments
 import { loginUser, logoutUser } from './route';
 
 export const router = express.Router();
-const password = getPassword();
 
-router.post('/login', loginUser);
-router.post('/logout', [authorization(password)], logoutUser);
+router.post('/login', [ authenticate, limiter(5, 60 * 1000) ], loginUser);
+router.post('/logout', [ limiter(5, 60 * 1000) ], logoutUser);
 
 export { router as auth };
