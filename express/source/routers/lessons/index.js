@@ -8,61 +8,60 @@ import { addKeynoteToLesson } from './hash/keynotes/route';
 import { getLessonKeynote, removeKeynoteFromLesson } from './hash/keynotes/hash/route';
 import { playLessonVideo, removeVideoFromLesson } from './hash/videos/hash/route';
 import { addVideoToLesson } from './hash/videos/route';
-import { validator, authorization, getPassword } from '../../utils';
+import { validator, authenticate } from '../../utils';
 
 // Schema
 import { createLesson, createVideo, createKeynote } from '../../schemas';
 
 export const router = express.Router();
-const password = getPassword();
 
 router.get('/', getLessons);
 
-router.post('/', [authorization(password), validator(createLesson)], addLesson);
+router.post('/', [ authenticate, validator(createLesson) ], addLesson);
 
-router.get('/:lessonHash', [authorization(password)], getLessonByHash);
+router.get('/:lessonHash', [ authenticate ], getLessonByHash);
 
 router.put(
     '/:lessonHash',
-    [authorization(password), validator(createLesson)],
+    [ authenticate, validator(createLesson) ],
     updateLessonByHash,
 );
 
-router.delete('/:lessonHash', [authorization(password)], removeLessonByHash);
+router.delete('/:lessonHash', [ authenticate ], removeLessonByHash);
 
 router.post(
     '/:lessonHash/videos',
-    [authorization(password), validator(createVideo)],
+    [ authenticate, validator(createVideo) ],
     addVideoToLesson,
 );
 
 router.post(
     '/:lessonHash/keynotes',
-    [authorization(password), validator(createKeynote)],
+    [ authenticate, validator(createKeynote) ],
     addKeynoteToLesson,
 );
 
 router.get(
     '/:lessonHash/videos/:videoHash',
-    [authorization(password)],
+    [ authenticate ],
     playLessonVideo,
 );
 
 router.delete(
     '/:lessonHash/videos/:videoHash',
-    [authorization(password)],
+    [ authenticate ],
     removeVideoFromLesson,
 );
 
 router.get(
     '/:lessonHash/keynotes/:keynoteHash',
-    [authorization(password)],
+    [ authenticate ],
     getLessonKeynote,
 );
 
 router.delete(
     '/:lessonHash/keynotes/:keynoteHash',
-    [authorization(password)],
+    [ authenticate ],
     removeKeynoteFromLesson,
 );
 

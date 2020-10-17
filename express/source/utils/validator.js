@@ -13,5 +13,5 @@ export const validator = (schema) => (req, res, next) => {
 
     const errors = validate.errors.map(({ message }) => message).join(', ');
 
-    next(new ValidationError(`${req.method}: ${req.originalUrl} [ ${errors} ]\n${body}`, 400));
+    next(new ValidationError(`${req.method}: ${req.originalUrl} [ ${errors} ]\n${req.body}`, 400));
 };

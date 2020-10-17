@@ -12,7 +12,7 @@ export const getPort = () => {
 
     if (!isValid) {
         throw new ValidationError(
-            'Environment variable PORT should a number and be between 3000 and 9999'
+            'Environment variable PORT should a number and be between 3000 and 9999',
         );
     }
 

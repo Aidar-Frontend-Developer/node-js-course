@@ -5,37 +5,36 @@ import express from 'express';
 import { getClasses, addClass } from './route';
 import { getClassByHash, updateClassByHash, removeClassByHash } from './hash/route';
 import { enrollToClass, expelFromClass } from './hash/education/route';
-import { validator, authorization, getPassword } from '../../utils';
+import { validator, authenticate } from '../../utils';
 
 // Schema
 import { createClass, enrollStudent, expelStudent } from '../../schemas';
 
 export const router = express.Router();
-const password = getPassword();
 
 router.get('/', getClasses);
 
-router.post('/', [authorization(password), validator(createClass)], addClass);
+router.post('/', [ authenticate, validator(createClass) ], addClass);
 
-router.get('/:classHash', [authorization(password)], getClassByHash);
+router.get('/:classHash', [ authenticate ], getClassByHash);
 
 router.put(
     '/:classHash',
-    [authorization(password), validator(createClass)],
+    [ authenticate, validator(createClass) ],
     updateClassByHash,
 );
 
-router.delete('/:classHash', [authorization(password)], removeClassByHash);
+router.delete('/:classHash', [ authenticate ], removeClassByHash);
 
 router.post(
     '/:classHash/enroll',
-    [authorization(password), validator(enrollStudent)],
+    [ authenticate, validator(enrollStudent) ],
     enrollToClass,
 );
 
 router.post(
     '/:classHash/expel',
-    [authorization(password), validator(expelStudent)],
+    [ authenticate, validator(expelStudent) ],
     expelFromClass,
 );
 
