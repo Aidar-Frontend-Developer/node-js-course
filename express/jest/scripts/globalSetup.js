@@ -12,7 +12,8 @@ require('dotenv').config({
     path: path.resolve('.env.test'),
 });
 
-module.exports = async function() {
+module.exports = function() {
+    // eslint-disable-next-line no-console
     console.log(chalk.green('λ'));
     global.t = 'hello';
 };

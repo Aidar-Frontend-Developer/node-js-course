@@ -1,5 +1,6 @@
 //Core
 import http from 'http';
+import { EOL } from 'os';
 import { createTerminus } from '@godaddy/terminus';
 
 // Instruments
@@ -15,7 +16,8 @@ const onSignal = () => {
 };
 
 const onShutdown = () => {
-    console.log('\ncleanup finished, server is shutting down\n');
+    // eslint-disable-next-line no-console
+    console.log(`${EOL}cleanup finished, server is shutting down${EOL}`);
 };
 
 const options = {
@@ -27,5 +29,6 @@ const options = {
 createTerminus(server, options);
 
 server.listen(PORT, () => {
+    // eslint-disable-next-line
     console.log(`Server API is up on port ${PORT}`);
 });
