@@ -7,6 +7,9 @@ import { createTerminus } from '@godaddy/terminus';
 import { app } from './server';
 import { getPort } from './utils';
 
+// DB
+import './db';
+
 const PORT = getPort();
 
 const server = http.createServer(app);
