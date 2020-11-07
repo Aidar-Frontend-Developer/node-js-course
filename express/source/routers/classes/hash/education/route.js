@@ -1,6 +1,6 @@
 export const enrollToClass = (req, res) => {
     try {
-        res.status(204).end();
+        res.sendStatus(204);
     } catch ({ message }) {
         res.status(400).json({ message });
     }
@@ -8,7 +8,7 @@ export const enrollToClass = (req, res) => {
 
 export const expelFromClass = (req, res) => {
     try {
-        res.status(204).end();
+        res.sendStatus(204);
     } catch ({ message }) {
         res.status(400).json({ message });
     }
