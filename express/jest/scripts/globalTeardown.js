@@ -7,6 +7,7 @@
 
 const chalk = require('chalk');
 
-module.exports = async function() {
+module.exports = function() {
+    // eslint-disable-next-line no-console
     console.log(chalk.red('λ'));
 };

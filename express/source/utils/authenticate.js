@@ -1,26 +1,20 @@
 // Core
-import passport from 'passport';
+import jwt from 'jsonwebtoken';
 
 // Instruments
-// import { NotFoundError } from './errors';
+import { getPassword } from './env';
 
+export const authenticate = async (req, res, next) => {
+    const { authorization } = req.headers;
+    const PASSWORD = getPassword();
 
-// Cookie usage
-// export const authenticate = (req, res, next) => {
-// if (!req.session.user) {
-// return next(new NotFoundError('cookie not found', 401));
-// }
+    if (!authorization) {
+        return res.status(401).json({ message: 'Unauthorized' });
+    }
 
-// const { email } = req.session.user;
-// if (email) {
-// next();
-// } else {
-// res.status(401).json({ message: 'authentication credentials are not valid' });
-// }
-// };
+    const token = await jwt.sign(req.body, PASSWORD);
 
-// JWT passport usage
-// export const authenticate = passport.authenticate('jwt', { session: false });
+    res.setHeader('X-Token', token);
 
-// GITHUB passport usage
-export const authenticate = passport.authenticate('github', { scope: [ 'user:email' ] });
+    return next();
+};

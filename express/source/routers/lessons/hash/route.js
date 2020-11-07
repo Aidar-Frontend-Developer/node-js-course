@@ -20,7 +20,7 @@ export const updateLessonByHash = (req, res) => {
 
 export const removeLessonByHash = (req, res) => {
     try {
-        res.status(204).end();
+        res.sendStatus(204);
     } catch ({ message }) {
         res.status(400).json({ message });
     }
