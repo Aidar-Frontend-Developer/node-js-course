@@ -27,6 +27,7 @@ const schema = new mongoose.Schema({
             email: {
                 type:     String,
                 required: true,
+                unique:   true,
             },
             primary: Boolean,
         },
@@ -58,6 +59,7 @@ const schema = new mongoose.Schema({
     hash:  {
         type:     String,
         required: true,
+        unique:   true,
         default:  () => v4(),
     },
     disabled: Boolean,
@@ -65,4 +67,20 @@ const schema = new mongoose.Schema({
     modified: Date,
 });
 
-export const users = mongoose.model('users', schema);
+schema.index({
+    'name.first': 1,
+    'name.last':  1,
+}, {
+    name: 'flName',
+});
+schema.index({
+    notes: 'text',
+}, {
+    name: 'notes',
+});
+
+const users = mongoose.model('users', schema);
+
+users.createIndexes();
+
+export { users };
