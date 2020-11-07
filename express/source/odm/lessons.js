@@ -24,6 +24,7 @@ const schema = new mongoose.Schema({
     hash: {
         type:     String,
         required: true,
+        unique:   true,
         default:  () => v4(),
     },
     availability: [
@@ -40,4 +41,17 @@ const schema = new mongoose.Schema({
     modified: Date,
 });
 
-export const lessons = mongoose.model('lessons', schema);
+schema.index(
+    {
+        order: 1,
+    },
+    {
+        name: 'order',
+    },
+);
+
+const lessons = mongoose.model('lessons', schema);
+
+lessons.createIndexes();
+
+export { lessons };
