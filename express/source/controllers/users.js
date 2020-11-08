@@ -10,31 +10,26 @@ export class UsersController {
 
     async create() {
         const data = await this.models.users.create();
-
         return data;
     }
 
-    async getAll() {
-        const data = await this.models.users.getAll();
-
+    async getUsers() {
+        const data = await this.models.users.getUsers();
         return data;
     }
 
-    async getByHash() {
-        const data = await this.models.users.getByHash();
-
+    async getUserByHash() {
+        const data = await this.models.users.getUserByHash();
         return data;
     }
 
-    async updateByHash() {
-        const data = await this.models.users.updateByHash();
-
+    async updateUserByHash() {
+        const data = await this.models.users.updateUserByHash();
         return data;
     }
 
-    async removeByHash() {
-        const data = await this.models.users.removeByHash();
-
+    async removeUserByHash() {
+        const data = await this.models.users.removeUserByHash();
         return data;
     }
 }

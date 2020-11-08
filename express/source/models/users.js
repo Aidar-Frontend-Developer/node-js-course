@@ -17,7 +17,7 @@ export class UserModel {
         return data;
     }
 
-    async getAll() {
+    async getUsers() {
         const { page, size } = this.data;
         const total = await users.countDocuments();
 
@@ -37,9 +37,8 @@ export class UserModel {
         };
     }
 
-    async getByHash() {
+    async getUserByHash() {
         const { hash } = this.data;
-
         const data = await users.findOne({ hash }).lean();
 
         if (!data) {
@@ -49,9 +48,8 @@ export class UserModel {
         return data;
     }
 
-    async updateByHash() {
+    async updateUserByHash() {
         const { hash, payload } = this.data;
-
         const data = await users.findOneAndUpdate({ hash }, payload);
 
         if (!data) {
@@ -61,7 +59,7 @@ export class UserModel {
         return data;
     }
 
-    async removeByHash() {
+    async removeUserByHash() {
         const { hash } = this.data;
 
         const data = await users.findOneAndDelete({ hash });
