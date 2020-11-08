@@ -16,6 +16,26 @@ export class UserModel {
         return data;
     }
 
+    async getAll() {
+        const { page, size } = this.data;
+        const total = await users.countDocuments();
+
+        const data = await users
+            .find({})
+            .skip(size * page)
+            .limit(size)
+            .lean();
+
+        return {
+            data,
+            meta: {
+                total,
+                page,
+                size,
+            },
+        };
+    }
+
     async _transformUserObject(data) {
         const { name, email, phone, password, sex, role } = data;
         const [ first, last ] = name.split(' ');
