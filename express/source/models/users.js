@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt';
 
 // Instruments
 import { users } from '../odm';
+import { NotFoundError } from '../utils';
 
 export class UserModel {
     constructor(data) {
@@ -34,6 +35,42 @@ export class UserModel {
                 size,
             },
         };
+    }
+
+    async getByHash() {
+        const { hash } = this.data;
+
+        const data = await users.findOne({ hash }).lean();
+
+        if (!data) {
+            throw new NotFoundError(`User document with hash ${hash} not found`);
+        }
+
+        return data;
+    }
+
+    async updateByHash() {
+        const { hash, payload } = this.data;
+
+        const data = await users.findOneAndUpdate({ hash }, payload);
+
+        if (!data) {
+            throw new NotFoundError(`User document with hash ${hash} not found`);
+        }
+
+        return data;
+    }
+
+    async removeByHash() {
+        const { hash } = this.data;
+
+        const data = await users.findOneAndDelete({ hash });
+
+        if (!data) {
+            throw new NotFoundError(`User document with hash ${hash} not found`);
+        }
+
+        return data;
     }
 
     async _transformUserObject(data) {
