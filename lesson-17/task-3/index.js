@@ -1,52 +1,26 @@
 use ahabibullin;
 
-function pagination(size = 5, page = 0) {
-  const customers = db.customers
-    .find()
-    .skip(size * page)
-    .limit(size);
-  const data = {
-    customers: [],
-    pagination: {
-      size: db.customers.find().size(),
-    },
-  };
+const paginator = (size, page) => {
+    const customers = db.customers.find().limit(size).skip((page-1) * size);
 
-  print(customers.size());
+    const customWithOrders = [];
 
-  while (customers.hasNext()) {
-    const {
-      _id,
-      name: {
-        first: fName,
-        last: lName
-      },
-    } = customers.next();
-    const orders = db.orders.aggregate([{
-        $match: {
-          customerId: _id,
-        },
-      },
-      {
-        $group: {
-          _id: '$product',
-          total: {
-            $sum: '$count',
-          },
-        },
-      },
-    ]);
+    while (customers.hasNext()) {
+        const { _id, name: { first, last  } } = customers.next();
 
-    const customer = {
-      fName,
-      lName,
-      orders: orders.toArray(),
-    };
+        const cursor = db.orders.aggregate([
+            { $match: { customerId: _id.valueOf() } },
+            { $group : { _id : '$product', total_ordered: {$sum : '$count'} } }
+        ]);
 
-    data.customers.push(customer);
-  }
+        const filterCustomersOrders = {
+            fName: first,
+            lName: last,
+            orders: cursor.toArray()
+        };
 
-  return data;
-}
+        customWithOrders.push(filterCustomersOrders);
+    }
 
-print(tojson(pagination()));
+    return customWithOrders;
+};

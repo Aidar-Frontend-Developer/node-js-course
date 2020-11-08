@@ -1,38 +1,22 @@
 use ahabibullin;
 
 const customers = db.customers.find();
-const data = [];
+
+let orders = [];
 
 while (customers.hasNext()) {
-  const {
-    _id,
-    name: {
-      first: fName,
-      last: lName
-    },
-  } = customers.next();
-  const orders = db.orders.aggregate([{
-      $match: {
-        customerId: _id,
-      },
-    },
-    {
-      $group: {
-        _id: '$product',
-        total: {
-          $sum: '$count',
-        },
-      },
-    },
-  ]);
+    const { _id, name: { first, last  } } = customers.next();
 
-  const customer = {
-    fName,
-    lName,
-    orders: orders.toArray(),
-  };
+    const cursor = db.orders.aggregate([
+        { $match: { customerId: _id.valueOf() } },
+        { $group : { _id : '$product', total_ordered: {$sum : '$count'} } }
+    ]);
 
-  data.push(customer);
+    let filterCustomersOrders = {
+        fName: first,
+        lName: last,
+        orders: cursor.toArray()
+    };
+
+    orders.push(filterCustomersOrders)
 }
-
-print(tojson(data));
