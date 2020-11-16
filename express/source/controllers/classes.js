@@ -13,4 +13,40 @@ export class ClassesController {
 
         return data;
     }
+
+    async getClasses() {
+        const data = await this.models.classes.getClasses();
+
+        return data;
+    }
+
+    async getClassByHash() {
+        const data = await this.models.classes.getClassByHash();
+
+        return data;
+    }
+
+    async updateClassByHash() {
+        const data = await this.models.classes.updateClassByHash();
+
+        return data;
+    }
+
+    async removeClassByHash() {
+        const data = await this.models.classes.removeClassByHash();
+
+        return data;
+    }
+
+    async enrollToClass() {
+        const data = await this.models.classes.enrollToClass();
+
+        return data;
+    }
+
+    async expelFromClass() {
+        const data = await this.models.classes.expelFromClass();
+
+        return data;
+    }
 }
