@@ -20,7 +20,6 @@ export class UserModel {
     async getUsers() {
         const { page, size } = this.data;
         const total = await users.countDocuments();
-
         const data = await users
             .find({})
             .skip(size * page)
@@ -61,7 +60,6 @@ export class UserModel {
 
     async removeUserByHash() {
         const { hash } = this.data;
-
         const data = await users.findOneAndDelete({ hash });
 
         if (!data) {
